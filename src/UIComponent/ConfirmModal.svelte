@@ -1,5 +1,7 @@
 <script>
     import ScoreBorad from '../UIComponent/ScoreBorad.svelte'; 
+    import { answersClone } from '../Stores/quiz-store.js';
+
     let showModal = true;
     let showScore = false;
 
@@ -10,6 +12,37 @@
         showModal = !showModal;
         showScore = !showScore;
     }
+
+    let myAnswers = [];
+    answersClone.subscribe((value) => {
+        myAnswers = [...value];
+    });
+    let attempted=-1;
+    function getScore() {
+        let score = myAnswers.reduce((acc,val,index) => { 
+            if(myAnswers[index] != null) {
+                return acc+1;
+            }  
+            return acc;
+        },0);
+        score = score - 1;
+        return (score/10 * 100)+"%";  
+    }
+
+    const countAttempt = () => {
+        let i=0;
+        while (i<myAnswers.length) {
+            if(myAnswers[i] != null){
+                myAnswers[i] = "UNATTEMPTED";
+                attempted+=1;   
+            }
+            else {
+                myAnswers[i] = "UNATTEMPTED";
+            } 
+            i++;
+        }
+        return attempted;
+    };
 </script>
 
 {#if showModal}
@@ -24,7 +57,7 @@
 </div>
 {/if}
 {#if showScore}
-    <ScoreBorad />
+        <ScoreBorad totalScore={getScore()} attempted={countAttempt()}/>        
 {/if}
 
 <style>

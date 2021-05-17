@@ -1,7 +1,13 @@
 <script>
     import { showAsideSection } from '../Stores/aside-store.js';
     import { onDestroy } from 'svelte';
-    import { questionReffrence } from '../Stores/quiz-store';
+    import { questionReffrence } from '../Stores/quiz-store.js';
+    import { answersClone } from '../Stores/quiz-store.js';
+
+    let myAnswers = new Array(10).fill(null);
+    answersClone.subscribe((data) => {
+        myAnswers = [...data];
+    });
 
     let showAside;
 
@@ -17,11 +23,6 @@
         });
     }
 
-    function changePointer1() {
-        questionReffrence.update((value) => {
-            return 0;
-        });
-    }
     function changePointerOne() {
         questionReffrence.update((value) => {
             return 0;
@@ -77,8 +78,8 @@
 
 {#if showAside}
 <div class="aside">
-    <i class='bx bxs-comment-x bx-flip-horizontal' style='color:#bc1214' on:click={closeAside} ></i>
-    <div class="wrapper">
+    <i class='bx bxs-x-square' style='color:#bc1214' on:click={closeAside}></i>
+    <div class="wrapper" >
         <div class="guide">
             <div class="checked" style="background-color: rgb(40, 167, 69);">
             </div>
@@ -97,7 +98,7 @@
                    <h2>01</h2>
                 </div>
                 <h3>Question Number 01</h3>
-                <div class="checkbox">
+                <div class="checkbox" >
                 </div>
             </div>
         </li>
@@ -117,7 +118,7 @@
                    <h2>03</h2>
                 </div>
                 <h3>Question Number 03</h3>
-                <div class="checkbox">
+                <div class="checkbox" >
                 </div>
             </div>
         </li>
@@ -127,7 +128,7 @@
                    <h2>04</h2>
                 </div>
                 <h3>Question Number 04</h3>
-                <div class="checkbox">
+                <div class="checkbox" >
                 </div>
             </div>
         </li>
@@ -205,6 +206,7 @@
     background-color: #ffffff;
     z-index: 9990;
     border-right: 3px solid rgb(128, 0, 0);
+    overflow: scroll;
 }
 .aside i {
     font-size: 2.5rem;
@@ -229,27 +231,38 @@
 }
 .list_content {
     display: flex;
-    margin: 20px 0px 20px 0px;
+    margin: 5px 0px 5px 0px;
+    cursor: pointer;
+    padding: 7px;
+    margin-right: 10px;
+    border-radius: 25px;
+    transition: all 0.3s;
+    border: 0px solid rgba(0, 0, 0, 0.3);
+}
+.list_content:hover {
+    background-color: #ccc;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    transition: all 0.3s;
 }
 .list_content h3 {
     font-weight: 400;
     padding: 0;
-    font-size: 1.75rem;
-    margin: 0px 40px 0px 15px;
+    font-size: 1.65rem;
+    margin: 0px 40px 0px 5px;
 }
 .checkbox {
     height: 25px;
     width: 25px;
     margin-top: 7px;
     border:1px solid #000000;
-    border-radius: 2px;
+    border-radius: 25px;
 }
 .checked {
     height: 25px;
     width: 25px;
     margin-top: 7px;
     border:1px solid #000000;
-    border-radius: 2px;
+    border-radius: 25px;
 }
 .guide {
     display: inline-flex;
@@ -269,4 +282,5 @@
     margin:40px 10px 10px 10px;
     border-radius: 5px;
 }
+
 </style>

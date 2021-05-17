@@ -9,7 +9,7 @@
 
     let showTimer = true;
     let showModal = false;
-    let initialValue = 0;
+    let initialValue = 1;
     let activebtn;
     //let depricateValue = initialValue;
     function handlePrevious() {

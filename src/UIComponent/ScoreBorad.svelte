@@ -1,6 +1,7 @@
 <script>
     import { questionReffrence } from '../Stores/quiz-store.js';
     import { reviewStatus } from '../Stores/review-store';
+    import { answersClone } from '../Stores/quiz-store.js';
     import App from '../App.svelte';
 
     let startQuiz = true;
@@ -9,9 +10,6 @@
     export let attempted=0;
 
     function restartQuiz() {
-        // questionReffrence.update((value) => {
-        //     return 0;
-        // });
         reviewStatus.update((value) => {
             return false;
         });
@@ -30,6 +28,14 @@
         startQuiz = false;
     }
 
+    // let myAnswers = [];
+    // answersClone.subscribe((value) => {
+    //     myAnswers = [...value];
+    // });
+    // for(let i=0; i<10;i++)
+    // {
+    //     console.log(myAnswers[i]);
+    // }
  </script>
  
  {#if startQuiz}
