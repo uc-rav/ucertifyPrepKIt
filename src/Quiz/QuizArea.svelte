@@ -172,20 +172,20 @@
         return attempted;
     };
 
-    function selectAnswer(i) {
-        answers[questionPointer] = i + 1;
-        questions[questionPointer].status = true;
-    }
+    // function selectAnswer() {
+    //     answers[questionPointer] = i + 1;
+    //     questions[questionPointer].status = true;
+    // }
+    answers[questionPointer] = null;
 
     $: answersClone.update((data) => {
-        return [answers, ...data];
+        return [...data, answers];
     });
 
-    let myAnswers = new Array(answers.length).fill(null);
+    let myAnswers = [];
     $: answersClone.subscribe((data) => {
         myAnswers = [...data];
     });
-    // $:console.log(myAnswers);
 </script>
 
 <div class="application">
@@ -208,15 +208,22 @@
                                 <label class="container">
                                     
                                     <!-- checked={answers[questionPointer]==null ? false : showReview ? false : 'checked'} -->
-                                    <input
+                                    <!-- <input
                                         type="radio"
                                         on:click={() => {
-                                            debugger;
                                             selectAnswer(i);
                                         }}
                                         name="options"
                                         disabled={showReview}
-                                        checked={answers[questionPointer] == null ? false: showReview ? false: "checked" } />{" " + opt}
+                                        checked={answers[questionPointer] == null ? false: showReview ? false: "checked" } />{" " + opt} -->
+
+                                        <input
+                                        type="radio"
+                                        bind:group={answers[questionPointer]}
+                                        value={i+1}
+                                        name="options"
+                                        disabled={showReview}
+                                         />{" " + opt}
                                     <span class="checkmark" />
                                 </label>
                             </li>
@@ -292,7 +299,7 @@
         color: rgb(255, 69, 0);
     }
     .greeting h1 span {
-        color: red;
+        color: rgb(255, 69, 0);
         position: fixed;
         margin-top: 10px;
     }

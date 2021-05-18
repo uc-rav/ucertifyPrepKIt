@@ -4,13 +4,18 @@
     import { questionReffrence } from '../Stores/quiz-store.js';
     import { answersClone } from '../Stores/quiz-store.js';
 
-    let myAnswers = new Array(10).fill(null);
-    answersClone.subscribe((data) => {
+    let myAnswers = [];
+    $: answersClone.subscribe((data) => {
         myAnswers = [...data];
     });
 
-    let showAside;
+    let questionPointer;
+    $: questionReffrence.subscribe((data) => {
+        questionPointer = data;
+    });
 
+
+    let showAside;
     const unsubscribe = showAsideSection.subscribe((data) => {
         showAside = data;
     });
@@ -98,7 +103,7 @@
                    <h2>01</h2>
                 </div>
                 <h3>Question Number 01</h3>
-                <div class="checkbox" >
+                <div class="{myAnswers[questionPointer][0] != null ? 'attempted' : 'checkbox'}" >
                 </div>
             </div>
         </li>
@@ -108,7 +113,7 @@
                    <h2>02</h2>
                 </div>
                 <h3>Question Number 02</h3>
-                <div class="checkbox">
+                <div class="{myAnswers[questionPointer][1] != null ? 'attempted' : 'checkbox'}">
                 </div>
             </div>
         </li>
@@ -118,7 +123,7 @@
                    <h2>03</h2>
                 </div>
                 <h3>Question Number 03</h3>
-                <div class="checkbox" >
+                <div class="{myAnswers[questionPointer][2] != null ? 'attempted' : 'checkbox'}" >
                 </div>
             </div>
         </li>
@@ -128,7 +133,7 @@
                    <h2>04</h2>
                 </div>
                 <h3>Question Number 04</h3>
-                <div class="checkbox" >
+                <div class="{myAnswers[questionPointer][3] != null ? 'attempted' : 'checkbox'}" >
                 </div>
             </div>
         </li>
@@ -138,7 +143,7 @@
                    <h2>05</h2>
                 </div>
                 <h3>Question Number 05</h3>
-                <div class="checkbox">
+                <div class="{myAnswers[questionPointer][4] != null ? 'attempted' : 'checkbox'}">
                 </div>
             </div>
         </li>
@@ -148,7 +153,7 @@
                    <h2>06</h2>
                 </div>
                 <h3>Question Number 06</h3>
-                <div class="checkbox">
+                <div class="{myAnswers[questionPointer][5] != null ? 'attempted' : 'checkbox'}">
                 </div>
             </div>
         </li>
@@ -158,7 +163,7 @@
                    <h2>07</h2>
                 </div>
                 <h3>Question Number 07</h3>
-                <div class="checkbox">
+                <div class="{myAnswers[questionPointer][6] != null ? 'attempted' : 'checkbox'}">
                 </div>
             </div>
         </li>
@@ -168,7 +173,7 @@
                    <h2>08</h2>
                 </div>
                 <h3>Question Number 08</h3>
-                <div class="checkbox">
+                <div class="{myAnswers[questionPointer][7] != null ? 'attempted' : 'checkbox'}">
                 </div>
             </div>
         </li>
@@ -178,7 +183,7 @@
                    <h2>09</h2>
                 </div>
                 <h3>Question Number 09</h3>
-                <div class="checkbox">
+                <div class="{myAnswers[questionPointer][8] != null ? 'attempted' : 'checkbox'}">
                 </div>
             </div>
         </li>
@@ -188,7 +193,7 @@
                    <h2>10</h2>
                 </div>
                 <h3>Question Number 10</h3>
-                <div class="checkbox">
+                <div class="{myAnswers[questionPointer][9] != null ? 'attempted' : 'checkbox'}">
                 </div>
             </div>
         </li>
@@ -256,6 +261,14 @@
     margin-top: 7px;
     border:1px solid #000000;
     border-radius: 25px;
+}
+.attempted {
+    height: 25px;
+    width: 25px;
+    margin-top: 7px;
+    border:1px solid #000000;
+    border-radius: 25px;
+    background-color: green;
 }
 .checked {
     height: 25px;

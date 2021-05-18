@@ -19,6 +19,13 @@
         });
         initialValue-=1;
     }
+
+    // let questionPointer;
+    // questionReffrence.subscribe((value) => {
+    //     questionPointer = value;
+    // });
+
+
     function handleNext() {
         questionReffrence.update((value) => {
             //console.log(value);
